@@ -1,5 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
+from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -10,7 +11,7 @@ from typing import Literal
 
 load_dotenv()
 
-model = ChatOpenAI()
+model = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.2, max_tokens=1000)
 
 parser = StrOutputParser()
 
@@ -46,6 +47,6 @@ branch_chain = RunnableBranch(
 
 chain = classifier_chain | branch_chain
 
-print(chain.invoke({'feedback': 'This is a beautiful phone'}))
+print(chain.invoke({'feedback': 'This is a RUBBISH but having good feature phone'}))
 
 chain.get_graph().print_ascii()
